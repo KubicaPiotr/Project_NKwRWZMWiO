@@ -73,6 +73,15 @@ int find_connection_to_remove(int n) {
 }
 
 int main() {
+
+    cout << "Lotnisko w San Escobar pęka w szwach!" << endl;
+    cout << "To oczywiscie efekt ogromnego ruchu lotniczego z Polski, jaki nastapil po nawiazaniu stosunkow dyplomatycznych miedzy oboma krajami" << endl;
+    cout << "Jako minister transportu republiki postanowilas wybudowac nowe lotnisko dla naszych narodowych linii lotniczych El Niño i to natychmiast." << endl;
+    cout << "W tym celu na pas startowy zostanie przerobiony jeden z odcinków sieci autostrad w naszym kraju." << endl;
+    cout << "Siec autostrad na planach ma kształt grafu, a wierzcholkami sa poszczegolne miasta." << endl;
+    cout << "Algorytm ustali, ktory odcinek sieci autostrad nalezy poswiecic pod pas startowy," << endl;
+    cout << "tak aby suma odleglosci ze stolicy kraju, Santo Subito (miasto numer 1), do pozostalych miast pozostala jak najmniejsza." << endl << endl;
+
     int n, m;
     cout << "Podaj liczbe miast:";
     cin >> n;
@@ -80,9 +89,9 @@ int main() {
     cin >> m;
 
     // wczytaj krawędzie grafu
-    cout << endl<< "WCZYTAJ ODNCICKI AUTOSTRAD: "<<endl;
+    cout << endl << "WCZYTAJ ODNCICKI AUTOSTRAD: " << endl;
     for (int i = 0; i < m; i++) {
-        cout << endl<<"ODCINEK "<<i+1<< ": "<<endl;
+        cout << endl << "ODCINEK " << i + 1 << ": " << endl;
         int u, v, weight;
         cout << "Podaj numer pierwszego miasta na tym odcinku autostrady: ";
         cin >> u;
