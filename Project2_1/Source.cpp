@@ -53,15 +53,15 @@ int find_connection_to_remove(int n) {
                 }), graph[w].end());
 
             int temp_sum = 0;
-            dijkstra(u, n); // oblicz odległości z wierzchołka u
+            dijkstra(1, n); // oblicz odległości z wierzchołka 1
             for (int i = 1; i <= n; i++) {
-                if (i != u) {
-                    temp_sum += dist[i];
-                }
+                //if (i != u) {
+                temp_sum += dist[i];
+                //}
             }
             if (temp_sum < min_sum) {
                 min_sum = temp_sum;
-                min_connection = u * n + w; // zapisz numer połączenia
+                min_connection = u * (n + 1) + w; // zapisz numer połączenia
             }
 
             // przywróć połączenie
@@ -107,8 +107,8 @@ int main() {
     int connection_to_remove = find_connection_to_remove(n);
 
     // wyznacz numery wierzchołków, między którymi znajduje się połączenie do usunięcia
-    int u = connection_to_remove / n;
-    int w = connection_to_remove % n;
+    int u = connection_to_remove / (n + 1);
+    int w = connection_to_remove % (n + 1);
 
     cout << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
     return 0;
