@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
 #include <queue>
-#include <algorithm>
+//#include <algorithm>
 #include <fstream>
 using namespace std;
 #define INF 1e9
@@ -9,7 +9,7 @@ using namespace std;
 vector<pair<int, int>> graph[100]; // graf reprezentowany przez listę sąsiedztwa
 int dist[100]; // tablica przechowująca odległości od wierzchołka startowego
 
-// Funkcja obliczająca najkrótszą drogę z każdego miasta do stolicy
+// Funkcja obliczająca najkrótszą drogę z każdego miasta do stolicy (int start = 1)
 void dijkstra(int start, int n) {
     for (int i = 1; i <= n; i++) {
         dist[i] = INF;
@@ -83,7 +83,7 @@ int main() {
     cout << "Algorytm ustali, ktory odcinek sieci autostrad nalezy poswiecic pod pas startowy," << endl;
     cout << "tak aby suma odleglosci ze stolicy kraju, Santo Subito (miasto numer 1), do pozostalych miast pozostala jak najmniejsza." << endl << endl;
 
-    ifstream input_file("graf2.txt");
+    ifstream input_file("graf.txt");
 
     // zczytaj ilość miast
     int n;
@@ -129,8 +129,11 @@ int main() {
     int u = connection_to_remove / (n+1);
     int w = connection_to_remove % (n+1);
 
-
-
-    cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
+    if (connection_to_remove == -1)
+    {
+        cout << endl << "Nie można usunac zadnego odcinka autostrady" << endl;
+    }
+    else
+        cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
     return 0;
 }
