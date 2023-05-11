@@ -2,13 +2,14 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <fstream>
 using namespace std;
 #define INF 1e9
 
-vector<pair<int, int>> graph[10001]; // graf reprezentowany przez listę sąsiedztwa
-int dist[10001]; // tablica przechowująca odległości od wierzchołka startowego
+vector<pair<int, int>> graph[100]; // graf reprezentowany przez listę sąsiedztwa
+int dist[100]; // tablica przechowująca odległości od wierzchołka startowego
 
-// Funkcja obliczająca odległości z wierzchołka startowego do każdego innego wierzchołka w grafie
+// Funkcja obliczająca najkrótszą drogę z każdego miasta do stolicy
 void dijkstra(int start, int n) {
     for (int i = 1; i <= n; i++) {
         dist[i] = INF;
@@ -56,12 +57,12 @@ int find_connection_to_remove(int n) {
             dijkstra(1, n); // oblicz odległości z wierzchołka 1
             for (int i = 1; i <= n; i++) {
                 //if (i != u) {
-                temp_sum += dist[i];
+                    temp_sum += dist[i];
                 //}
             }
             if (temp_sum < min_sum) {
                 min_sum = temp_sum;
-                min_connection = u * (n + 1) + w; // zapisz numer połączenia
+                min_connection = u * (n+1) + w; // zapisz numer połączenia
             }
 
             // przywróć połączenie
@@ -82,6 +83,24 @@ int main() {
     cout << "Algorytm ustali, ktory odcinek sieci autostrad nalezy poswiecic pod pas startowy," << endl;
     cout << "tak aby suma odleglosci ze stolicy kraju, Santo Subito (miasto numer 1), do pozostalych miast pozostala jak najmniejsza." << endl << endl;
 
+    ifstream input_file("graf2.txt");
+
+    // zczytaj ilość miast
+    int n;
+    input_file >> n;
+
+    // zczytaj ilość odcinków autostrad
+    int num_edges;
+    input_file >> num_edges;
+
+    // zczytaj krawędzie wraz z wagami
+    for (int i = 0; i < num_edges; i++) {
+        int u, v, weight;
+        input_file >> u >> v >> weight;
+        graph[u].push_back(make_pair(v, weight));
+        graph[v].push_back(make_pair(u, weight));
+    }
+    /* WPISYWANIE RĘCZNE
     int n, m;
     cout << "Podaj liczbe miast:";
     cin >> n;
@@ -102,14 +121,16 @@ int main() {
         graph[u].push_back(make_pair(v, weight));
         graph[v].push_back(make_pair(u, weight));
     }
-
+    */
     // znajdź połączenie, które powinno zostać usunięte
     int connection_to_remove = find_connection_to_remove(n);
 
-    // wyznacz numery wierzchołków, między którymi znajduje się połączenie do usunięcia
-    int u = connection_to_remove / (n + 1);
-    int w = connection_to_remove % (n + 1);
+    // wyznacz numery miast, między którymi znajduje się autostrada do usunięcia
+    int u = connection_to_remove / (n+1);
+    int w = connection_to_remove % (n+1);
 
-    cout << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
+
+
+    cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
     return 0;
 }
