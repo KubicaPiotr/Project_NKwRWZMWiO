@@ -131,9 +131,11 @@ int main() {
 
     if (connection_to_remove == -1)
     {
-        cout << endl << "Nie można usunac zadnego odcinka autostrady" << endl;
+        cout << endl << "Nie mozna usunac zadnego odcinka autostrady" << endl;
     }
     else
         cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
+
+    system("pause");
     return 0;
 }
