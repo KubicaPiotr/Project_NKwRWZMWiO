@@ -100,6 +100,7 @@ int main() {
         graph[u].push_back(make_pair(v, weight));
         graph[v].push_back(make_pair(u, weight));
     }
+<<<<<<< Updated upstream
     /* WPISYWANIE RĘCZNE
     int n, m;
     cout << "Podaj liczbe miast:";
@@ -107,6 +108,16 @@ int main() {
     cout << "Podaj liczbe odcinkow autostrad: ";
     cin >> m;
 
+=======
+
+    /* WPISYWANIE RĘCZNE
+    int n, m;
+    cout << "Podaj liczbe miast:";
+    cin >> n;
+    cout << "Podaj liczbe odcinkow autostrad: ";
+    cin >> m;
+
+>>>>>>> Stashed changes
     // wczytaj krawędzie grafu
     cout << endl << "WCZYTAJ ODNCICKI AUTOSTRAD: " << endl;
     for (int i = 0; i < m; i++) {
@@ -126,6 +137,7 @@ int main() {
     int connection_to_remove = find_connection_to_remove(n);
 
     // wyznacz numery miast, między którymi znajduje się autostrada do usunięcia
+<<<<<<< Updated upstream
     int u = connection_to_remove / (n+1);
     int w = connection_to_remove % (n+1);
 
@@ -136,6 +148,18 @@ int main() {
     else
         cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
 
+=======
+    int u = connection_to_remove / (n + 1);
+    int w = connection_to_remove % (n + 1);
+
+    if (connection_to_remove == -1)
+    {
+        cout << endl << "Nie mozna usunac zadnego odcinka autostrady" << endl << endl;
+    }
+    else
+        cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl << endl;
+    
+>>>>>>> Stashed changes
     system("pause");
     return 0;
 }
