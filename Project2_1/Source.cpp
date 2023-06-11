@@ -72,6 +72,35 @@ int find_connection_to_remove(int n) {
     }
     return min_connection;
 }
+bool isTree(vector<pair<int, int>> graph[], int V) {
+    vector<bool> visited(V, false);  //wektor visited przechowuje informację o odwiedzeniu każdego wierzchołka. Wszystkie wartości na false - żaden wierzchołek nie został odwiedzony.
+
+    // Sprawdzenie, czy istnieje cykl w grafie
+    queue<int> q;
+    q.push(0);
+    visited[0] = true;
+
+    while (!q.empty()) { // dopóki kolejka q nie jest pusta
+        int curr = q.front(); // Pobieramy bieżący wierzchołek z przodu kolejki (curr).
+        q.pop();
+
+        for (auto& edge : graph[curr]) { // przechodzimy przez wszystkie sąsiadujące wierzchołki neighbor dla curr, które są przechowywane w wektorze graph[curr].
+            int neighbor = edge.first;
+            if (!visited[neighbor]) { // Jeśli neighbor nie był jeszcze odwiedzony, oznaczamy go jako odwiedzony
+                q.push(neighbor); // dodajemy go do kolejki q
+            }
+            else if (edge.second != curr) {
+                // Jeśli neighbor był już odwiedzony i nie jest równy bieżącemu wierzchołkowi(edge.second != curr), oznacza to, że istnieje krawędź powrotna do innego wierzchołka niż rodzic.W takim przypadku graf nie jest drzewem, więc zwracamy false.
+                return false;
+            }
+        }
+    }
+    for (int i = 0; i < V; i++) {
+        if (!visited[i])
+            return false;
+    }
+    return true;
+}
 
 int main() {
 
@@ -83,7 +112,7 @@ int main() {
     cout << "Algorytm ustali, ktory odcinek sieci autostrad nalezy poswiecic pod pas startowy," << endl;
     cout << "tak aby suma odleglosci ze stolicy kraju, Santo Subito (miasto numer 1), do pozostalych miast pozostala jak najmniejsza." << endl << endl;
 
-    ifstream input_file("graf.txt");
+    ifstream input_file("graf2.txt");
 
     // zczytaj ilość miast
     int n;
@@ -100,42 +129,47 @@ int main() {
         graph[u].push_back(make_pair(v, weight));
         graph[v].push_back(make_pair(u, weight));
     }
-    /* WPISYWANIE RĘCZNE
-    int n, m;
-    cout << "Podaj liczbe miast:";
-    cin >> n;
-    cout << "Podaj liczbe odcinkow autostrad: ";
-    cin >> m;
-
-    // wczytaj krawędzie grafu
-    cout << endl << "WCZYTAJ ODNCICKI AUTOSTRAD: " << endl;
-    for (int i = 0; i < m; i++) {
-        cout << endl << "ODCINEK " << i + 1 << ": " << endl;
-        int u, v, weight;
-        cout << "Podaj numer pierwszego miasta na tym odcinku autostrady: ";
-        cin >> u;
-        cout << "Podaj numer drugiego miasta na tym odcinku autostrady: ";
-        cin >> v;
-        cout << "Podaj odleglosc pomiedzy miastami: ";
-        cin >> weight;
-        graph[u].push_back(make_pair(v, weight));
-        graph[v].push_back(make_pair(u, weight));
-    }
-    */
-    // znajdź połączenie, które powinno zostać usunięte
-    int connection_to_remove = find_connection_to_remove(n);
-
-    // wyznacz numery miast, między którymi znajduje się autostrada do usunięcia
-    int u = connection_to_remove / (n+1);
-    int w = connection_to_remove % (n+1);
-
-    if (connection_to_remove == -1)
-    {
-        cout << endl << "Nie mozna usunac zadnego odcinka autostrady" << endl;
-    }
+    if (isTree(graph, n))
+        cout << "Graf jest drzewem, nie mozna usunac zadnego odcinka autostrady" << endl;
     else
-        cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
+    {
+        cout << "Graf nie jest drzewem" << endl;
+        /* WPISYWANIE RĘCZNE
+        int n, m;
+        cout << "Podaj liczbe miast:";
+        cin >> n;
+        cout << "Podaj liczbe odcinkow autostrad: ";
+        cin >> m;
 
+        // wczytaj krawędzie grafu
+        cout << endl << "WCZYTAJ ODNCICKI AUTOSTRAD: " << endl;
+        for (int i = 0; i < m; i++) {
+            cout << endl << "ODCINEK " << i + 1 << ": " << endl;
+            int u, v, weight;
+            cout << "Podaj numer pierwszego miasta na tym odcinku autostrady: ";
+            cin >> u;
+            cout << "Podaj numer drugiego miasta na tym odcinku autostrady: ";
+            cin >> v;
+            cout << "Podaj odleglosc pomiedzy miastami: ";
+            cin >> weight;
+            graph[u].push_back(make_pair(v, weight));
+            graph[v].push_back(make_pair(u, weight));
+        }
+        */
+        // znajdź połączenie, które powinno zostać usunięte
+        int connection_to_remove = find_connection_to_remove(n);
+
+        // wyznacz numery miast, między którymi znajduje się autostrada do usunięcia
+        int u = connection_to_remove / (n + 1);
+        int w = connection_to_remove % (n + 1);
+
+        if (connection_to_remove == -1)
+        {
+            cout << endl << "Nie mozna usunac zadnego odcinka autostrady" << endl;
+        }
+        else
+            cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
+    }
     system("pause");
     return 0;
 }
