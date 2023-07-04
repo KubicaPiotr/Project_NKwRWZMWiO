@@ -57,12 +57,12 @@ int find_connection_to_remove(int n) {
             dijkstra(1, n); // oblicz odległości z wierzchołka 1
             for (int i = 1; i <= n; i++) {
                 //if (i != u) {
-                    temp_sum += dist[i];
+                temp_sum += dist[i];
                 //}
             }
             if (temp_sum < min_sum) {
                 min_sum = temp_sum;
-                min_connection = u * (n+1) + w; // zapisz numer połączenia
+                min_connection = u * (n + 1) + w; // zapisz numer połączenia
             }
 
             // przywróć połączenie
@@ -100,46 +100,13 @@ int main() {
         graph[u].push_back(make_pair(v, weight));
         graph[v].push_back(make_pair(u, weight));
     }
-<<<<<<< Updated upstream
-    /* WPISYWANIE RĘCZNE
-    int n, m;
-    cout << "Podaj liczbe miast:";
-    cin >> n;
-    cout << "Podaj liczbe odcinkow autostrad: ";
-    cin >> m;
-
-=======
-
-    /* WPISYWANIE RĘCZNE
-    int n, m;
-    cout << "Podaj liczbe miast:";
-    cin >> n;
-    cout << "Podaj liczbe odcinkow autostrad: ";
-    cin >> m;
-
->>>>>>> Stashed changes
-    // wczytaj krawędzie grafu
-    cout << endl << "WCZYTAJ ODNCICKI AUTOSTRAD: " << endl;
-    for (int i = 0; i < m; i++) {
-        cout << endl << "ODCINEK " << i + 1 << ": " << endl;
-        int u, v, weight;
-        cout << "Podaj numer pierwszego miasta na tym odcinku autostrady: ";
-        cin >> u;
-        cout << "Podaj numer drugiego miasta na tym odcinku autostrady: ";
-        cin >> v;
-        cout << "Podaj odleglosc pomiedzy miastami: ";
-        cin >> weight;
-        graph[u].push_back(make_pair(v, weight));
-        graph[v].push_back(make_pair(u, weight));
-    }
-    */
+    
     // znajdź połączenie, które powinno zostać usunięte
     int connection_to_remove = find_connection_to_remove(n);
 
     // wyznacz numery miast, między którymi znajduje się autostrada do usunięcia
-<<<<<<< Updated upstream
-    int u = connection_to_remove / (n+1);
-    int w = connection_to_remove % (n+1);
+    int u = connection_to_remove / (n + 1);
+    int w = connection_to_remove % (n + 1);
 
     if (connection_to_remove == -1)
     {
@@ -148,18 +115,6 @@ int main() {
     else
         cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl;
 
-=======
-    int u = connection_to_remove / (n + 1);
-    int w = connection_to_remove % (n + 1);
-
-    if (connection_to_remove == -1)
-    {
-        cout << endl << "Nie mozna usunac zadnego odcinka autostrady" << endl << endl;
-    }
-    else
-        cout << endl << "Odcinek autostrady, ktory powinien zostac usuniety znajduje sie pomiedzy miastami: " << u << " - " << w << endl << endl;
-    
->>>>>>> Stashed changes
     system("pause");
     return 0;
 }
